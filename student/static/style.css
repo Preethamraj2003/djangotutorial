@@ -1,0 +1,22 @@
+body {
+    background-color:antiquewhite;
+    font-family: verdana;
+  }
+
+  .tabledata{
+    display: flex;
+    justify-content: center;
+  }
+  h3{
+    text-align: center;
+  }
+  #btn1{
+    display: flex;
+    justify-content: center;
+  }
+  #btn2{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+  

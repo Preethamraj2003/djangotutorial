@@ -1,7 +1,7 @@
 {% if latest_question_list %}
     <ul>
     {% for employee in latest_question_list %}
-        <li><a href="/detail/{{ employee.id }}/">{{ employee.name }}</a></li>
+        <li><a href="/index/{{ employee.id }}/">{{ employee.name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

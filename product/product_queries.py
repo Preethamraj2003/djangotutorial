@@ -12,4 +12,3 @@ Category.objects.filter(parent_cat_id_id__in=['4', '1']).values('parent_cat_id_i
 
 # list all sub_category under a category(based on name)
 Category.objects.filter(parent_cat_id_id__name='cname1').values('id')
-

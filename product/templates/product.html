@@ -1,9 +1,66 @@
-{% if latest_question_list %}
-    <ul>
-    {% for product in latest_question_list %}
-        <li><a href="/product_detail/{{ product.id }}/">{{ product.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'productstyle.css' %}">
+    <style>
+        ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+ul li:hover {
+    background-color: #e0f7fa;  
+}
+
+ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+}
+
+ul li a:hover {
+    color: #0056b3;  
+}
+
+p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f44336;  
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <h2>Product List</h2>
+
+    {% if latest_question_list %}
+        <ul>
+        {% for cat in latest_question_list %}
+            <li><a href="/product_detail/{{ cat.id }}/">{{ cat.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+</head>
+<body>
+
+    <h2 style="text-align: center;">Employee Details</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Employee_Id</th>
+                <th>Employee_Name</th>
+                <th>Employee_Email</th>
+                <th>Employee_Designation</th>
+                <th>Employee_Salary</th>
+                <th>Employee_Experience</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if employees %}
+                {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.id }}</td>
+                        <td><a href="/detail/{{ employee.id }}/">{{ employee.name }}</a></td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.designation }}</td>
+                        <td>{{ employee.salary }}</td>
+                        <td>{{ employee.expn }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6">No employees found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <p><a href="{% url 'display' %}">Back to Employee List</a></p>
+</body>
+</html>

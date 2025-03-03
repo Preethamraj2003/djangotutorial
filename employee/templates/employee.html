@@ -1,0 +1,149 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+    <script src="{% static 'dropdown.js' %}"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .no-records {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+        }
+
+        button {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Employee List</h2>
+
+    <form method="GET" action="{% url 'employee_view' %}" id="employeeform">
+        <!-- Name Dropdown -->
+        <label for="employeeselect">Select Name:</label>
+        <select name="employeeselect" id="employeeselect">
+            <option value="">-- Select Name --</option>
+            {% for emp in employee_list %}
+                <option value="{{ emp.name }}" 
+                        {% if selected_name == emp.name %}selected{% endif %}>
+                    {{ emp.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <!-- Designation Dropdown -->
+        <label for="designation">Select Designation:</label>
+        <select name="designation" id="designation">
+            <option value="">-- Select Designation --</option>
+            {% for emp in employee_list %}
+                <option value="{{ emp.designation }}" 
+                        {% if selected_designation == emp.designation %}selected{% endif %}>
+                    {{ emp.designation }}
+                </option>
+            {% endfor %}
+        </select>
+
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Employee_Id</th>
+                <th>Employee_Name</th>
+                <th>Employee_Email</th>
+                <th>Employee_Designation</th>
+                <th>Employee_Salary</th>
+                <th>Employee_Experience</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if employees %}
+                {% for entry in employees %}
+                    <tr>
+                        <td>{{ entry.id }}</td>
+                        <td><a href="/detail/{{ entry.id }}/">{{ entry.name }}</a></td>
+                        <td>{{ entry.email }}</td>
+                        <td>{{ entry.designation }}</td>
+                        <td>{{ entry.salary }}</td>
+                        <td>{{ entry.expn }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="no-records">
+                        <span>No records available</span>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>

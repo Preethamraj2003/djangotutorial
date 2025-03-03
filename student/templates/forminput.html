@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h2, h3 {
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            display: inline-block;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            margin: 20px auto;
+            width: 80%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .no-data {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Search Student Results</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Get Results</button>
+    </form>
+
+    {% if student %}
+        <h3>{{ student.name }} (USN: {{ student.usn }})</h3>
+
+        {% if results %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject ID</th>
+                        <th>Subject Name</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td>{{ result.sub.id }}</td>
+                            <td>{{ result.sub.name }}</td>
+                            <td>{{ result.marks }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <p><strong>Average Marks: </strong>{{ average }}</p>
+        {% else %}
+            <p class="no-data">No results found for this semester.</p>
+        {% endif %}
+    {% else %}
+        <p class="no-data">No student found with the provided USN.</p>
+    {% endif %}
+
+</body>
+</html>

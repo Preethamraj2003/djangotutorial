@@ -1,0 +1,104 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%; 
+            
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #555;
+            margin: 8px 0;
+        }
+
+        .card a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            font-size: 16px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Employee Details</h2>
+
+    <div class="card-container">
+        {% if emp_info %}
+            {% for entry in emp_info %}
+                <div class="card">
+                    <p><strong>ID:</strong> {{ entry.id }}</p>
+                    <p><strong>Name:</strong> <a href="/detail/{{ entry.id }}/">{{ entry.name }}</a></p>
+                    <p><strong>Email:</strong> {{ entry.email }}</p>
+                    <p><strong>Designation:</strong> {{ entry.designation }}</p>
+                    <p><strong>Salary:</strong> {{ entry.salary }}</p>
+                    <p><strong>Experience:</strong> {{ entry.expn }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No employee details available.</p>
+        {% endif %}
+    </div>
+
+    <div class="back-link">
+        <p><a href="{% url 'display' %}">Back to Employee List</a></p>
+    </div>
+</body>
+</html>

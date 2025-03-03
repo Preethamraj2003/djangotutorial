@@ -2,21 +2,30 @@ from django.shortcuts import render
 from product.models import Product, Category, Brand
 from django.http import HttpResponse, Http404
 from django.template import loader
+from django.http import Http404
+from django.core.paginator import Paginator
 
 
-def product_detail(request,pr_id) : 
-    products = Product.objects.filter(id=pr_id).values('id')
-    if products: 
-        prod = Product.objects.filter(id=pr_id)
-        # import ipdb;ipdb.set_trace()
-        response = "id : %s"%prod[0].id, "Product_name : %s"%prod[0].name,  " salary : %s"%prod[0].ratings, " Designation : %s "%prod[0].price, " Designation : %s "%prod[0].brand_id, " Designation : %s "%prod[0].category_id
-        return HttpResponse(response)
-    else: 
-        return Http404('no found')
+def product_detail(request, pr_id):
+    category = Category.objects.filter(id=pr_id).first()
     
+    if not category:
+        raise Http404('Category not found')
+
+    products = Product.objects.filter(category_id=pr_id)
+    
+    paginator = Paginator(products, 3)  
+    page_number = request.GET.get('page')  
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'productinfo.html', {
+        'category': category,
+        'page_obj': page_obj,
+    })
+
 
 def product_index(request):
-    product_list = Product.objects.all()
+    product_list = Category.objects.all()
     template = loader.get_template("product.html")
     context = {
         "latest_question_list": product_list,

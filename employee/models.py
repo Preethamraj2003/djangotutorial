@@ -17,6 +17,7 @@ class Employee(models.Model) :
     salary = models.FloatField()
     expn = models.PositiveSmallIntegerField()
     d_id = models.ForeignKey(Department, on_delete=models.CASCADE)
+    # photo = models.TextField(max_length=255, blank=True, null=True)
 
 class Contact(models.Model) : 
     number = models.PositiveBigIntegerField()

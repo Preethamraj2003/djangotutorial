@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products in Category</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+       #product-list {
+        margin: 20px;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .product-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 30%; 
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+        }
+
+        .product-card:hover {
+            transform: scale(1.05); 
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+
+        .product-card p {
+            margin: 10px 0;
+        }
+
+        .product-card strong {
+            color: black; 
+        }
+        
+        h2{
+            text-align: center;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            padding: 8px 16px;
+            margin: 0 4px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+        }
+
+        .pagination a:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .pagination .current {
+            font-weight: bold;
+            padding: 8px 16px;
+            margin: 0 4px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Products in Category: {{ category.name }}</h2>
+
+    <div id="product-list">
+        {% if page_obj.object_list %}
+            <div class="product-container">
+                {% for product in page_obj.object_list %}
+                    <div class="product-card">
+                        <p><strong>Product ID:</strong> {{ product.id }}</p>
+                        <p><strong>Product Name:</strong> {{ product.name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No products found in this category.</p>
+        {% endif %}
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+
+</body>
+</html>
