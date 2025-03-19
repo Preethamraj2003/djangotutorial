@@ -29,10 +29,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY', default='django-insecure-m$i&y0-u_q$w$+x%p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DJANGO_DEBUG', True)
 
-# ALLOWED_HOSTS = ["0.0.0.0"]
+ALLOWED_HOSTS=['*']
 
-
-# Application definition
+CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -44,6 +43,8 @@ INSTALLED_APPS = [
     'employee',
     'student',
     'product',
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'mysite.urls'

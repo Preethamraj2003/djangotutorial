@@ -4,6 +4,8 @@ from django.http import HttpResponse, Http404
 from django.template import loader
 from django.http import Http404
 from django.core.paginator import Paginator
+from rest_framework import  viewsets
+from product.serializers import BrandSerializer, CategorySerializer, ProductSerializer
 
 
 def product_detail(request, pr_id):
@@ -45,3 +47,25 @@ def categories(request):
         'sub_categories': sub_categories,
     }
     return HttpResponse (sub_categories)
+
+
+class  BrandviewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset =  Brand.objects.all()
+    serializer_class = BrandSerializer
+
+class  CategoryviewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset =  Category.objects.all()
+    serializer_class = CategorySerializer
+
+class  ProductviewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset =  Product.objects.all()
+    serializer_class = ProductSerializer

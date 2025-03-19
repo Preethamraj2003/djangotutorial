@@ -114,13 +114,17 @@
         <select name="sem_id" id="sem_id">
             <option value="">Select Semester</option>
             {% for sem in semesters %}
-                <option value="{{ sem.id }}">Semester {{ sem.id }}</option>
+                <option value="{{ sem.id }}"> {{ sem.id }}</option>
             {% endfor %}
         </select>
         <br><br>
 
         <button type="submit">Search</button>
     </form>
+
+    {% if semFound %}
+        <h3>Semester should be between 1 and 8 </h3>
+    {% endif %}
 
     {% if no_usn_found %}
         <h4>No student found with this USN, or no results for this semester.</h4>

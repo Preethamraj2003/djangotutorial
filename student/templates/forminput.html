@@ -80,6 +80,9 @@
 <body>
 
     <h2>Search Student Results</h2>
+    {% if semFound %}
+        <h3>Semester should be between 1 and 8 </h3>
+    {% endif %}
 
     <form method="POST">
         {% csrf_token %}
@@ -117,6 +120,8 @@
     {% else %}
         <p class="no-data">No student found with the provided USN.</p>
     {% endif %}
+
+    
 
 </body>
 </html>
